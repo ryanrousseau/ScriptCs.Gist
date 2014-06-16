@@ -14,6 +14,9 @@ Install via the scriptcs install command `scriptcs -install ScriptCs.Gist -g`
 
 Using
 =====
+This module requires the nightly build of scriptcs (until 0.10 is released) `cinst scriptcs -pre -source https://www.myget.org/F/scriptcsnightly/`
+
+
 Specify the gist module when executing your script `scriptcs script.csx -modules gist`
 
 The #gist line processor takes a gist id as an argument.  The processor will download any files in the gist ending with .csx to a folder named gists/{gistId}.  Subsequent runs will load the existing file on disk.  To redownload the scripts, simply delete the downloaded files before running again.
