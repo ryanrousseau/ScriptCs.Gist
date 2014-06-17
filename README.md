@@ -7,6 +7,7 @@ Inspired by
 * http://stackoverflow.com/questions/18406109/scriptcs-hosting-advantages-over-roslyn/18442295#18442295
 * https://github.com/scriptcs/scriptcs/issues/109
 * https://github.com/mmbot/mmbot.scripts/blob/master/scripts/Scripting/scriptgist.csx
+* https://twitter.com/filip_woj/status/478677382598250496
 
 Installing
 ==========
