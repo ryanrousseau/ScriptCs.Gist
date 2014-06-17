@@ -12,10 +12,10 @@ Installing
 ==========
 Install via the scriptcs install command `scriptcs -install ScriptCs.Gist -g`
 
-Using
-=====
 This module requires the nightly build of scriptcs (until 0.10 is released) `cinst scriptcs -pre -source https://www.myget.org/F/scriptcsnightly/`
 
+Using in a script
+=================
 
 Specify the gist module when executing your script `scriptcs script.csx -modules gist`
 
@@ -29,3 +29,19 @@ Here's the script that I used for testing.  Test gist found here: https://gist.g
     pinger.Ping();
 
     Console.WriteLine("done!");
+
+Using in the repl
+=================
+
+Specify the gist module when executing your script `scriptcs -repl -modules gist`
+
+Use the :gist repl command
+
+    > :gist "0dca8b3a74958f82406a"
+    Hello from gist!
+    Tot ziens van gist!
+    > var pinger = new Pinger();
+    > pinger.Ping()
+    Pong!
+    >
+
