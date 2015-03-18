@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Gist Module for scriptcs")]
 [assembly: AssemblyCompany("Ryan Rousseau")]
 [assembly: AssemblyProduct("ScriptCs.Gist")]
-[assembly: AssemblyCopyright("Copyright © Ryan Rousseau 2014")]
+[assembly: AssemblyCopyright("Copyright © Ryan Rousseau 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.2")]
-[assembly: AssemblyFileVersion("0.1.2")]
-[assembly: AssemblyInformationalVersion("0.1.2")]
+[assembly: AssemblyVersion("0.13.3")]
+[assembly: AssemblyFileVersion("0.13.3")]
+[assembly: AssemblyInformationalVersion("0.13.3")]

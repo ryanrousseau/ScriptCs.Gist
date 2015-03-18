@@ -18,12 +18,17 @@ namespace ScriptCs.Gist
             get { return "gist"; }
         }
 
+        public string Description
+        {
+            get { return "Download and execute script hosted as a gist."; }
+        }
+
         public GistReplCommand(ILog log)
         {
             _Downloader = new GistDownloader(log);
         }
 
-        public object Execute(IScriptExecutor repl, object[] args)
+        public object Execute(IRepl repl, object[] args)
         {
             if (repl == null || args == null || args.Length == 0)
             {
