@@ -13,7 +13,7 @@ Installing
 ==========
 Install via the scriptcs install command `scriptcs -install ScriptCs.Gist -g`
 
-This module requires the nightly build of scriptcs (until 0.10 is released) `cinst scriptcs -pre -source https://www.myget.org/F/scriptcsnightly/`
+The current version is built using ScriptCs.Contracts version 0.13.3
 
 Using in a script
 =================
