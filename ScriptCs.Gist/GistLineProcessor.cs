@@ -1,5 +1,4 @@
-﻿using Common.Logging;
-using ScriptCs.Contracts;
+﻿using ScriptCs.Contracts;
 
 namespace ScriptCs.Gist
 {
@@ -16,9 +15,9 @@ namespace ScriptCs.Gist
             get { return "gist"; }
         }
 
-        public GistLineProcessor(ILog log)
+        public GistLineProcessor(ILogProvider logProvider)
         {
-            _Downloader = new GistDownloader(log);
+            _Downloader = new GistDownloader(logProvider.ForCurrentType());
         }
 
         protected override bool ProcessLine(IFileParser parser, FileParserContext context, string line)

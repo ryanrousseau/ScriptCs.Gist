@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using Common.Logging;
 using ScriptCs.Contracts;
 
 namespace ScriptCs.Gist
@@ -23,9 +22,9 @@ namespace ScriptCs.Gist
             get { return "Download and execute script hosted as a gist."; }
         }
 
-        public GistReplCommand(ILog log)
+        public GistReplCommand(ILogProvider logProvider)
         {
-            _Downloader = new GistDownloader(log);
+            _Downloader = new GistDownloader(logProvider.ForCurrentType());
         }
 
         public object Execute(IRepl repl, object[] args)
