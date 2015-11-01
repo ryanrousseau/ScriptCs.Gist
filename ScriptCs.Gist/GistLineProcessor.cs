@@ -1,4 +1,5 @@
-﻿using ScriptCs.Contracts;
+﻿using System.Linq;
+using ScriptCs.Contracts;
 
 namespace ScriptCs.Gist
 {
@@ -22,12 +23,24 @@ namespace ScriptCs.Gist
 
         protected override bool ProcessLine(IFileParser parser, FileParserContext context, string line)
         {
-            var gistId = GetDirectiveArgument(line);
+            var args = GetDirectiveArgument(line).Split();
+
+            var gistId = args[0];
+            var scriptToExecute = args.Length > 1 ? args[1] : null;
+
             var files = _Downloader.DownloadGistFiles(gistId);
 
-            foreach (var file in files)
+            if (!string.IsNullOrEmpty(scriptToExecute))
             {
+                var file = files.First(f => f.Contains(scriptToExecute));
                 parser.ParseFile(file, context);
+            }
+            else
+            {
+                foreach (var file in files)
+                {
+                    parser.ParseFile(file, context);
+                }
             }
 
             return true;
