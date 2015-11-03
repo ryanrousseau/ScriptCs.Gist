@@ -11,6 +11,8 @@ namespace ScriptCs.Gist
     public class GistReplCommand : IReplCommand
     {
         private readonly GistDownloader _Downloader;
+        private readonly IFileSystem _FileSystem;
+        private readonly ILog _Logger;
 
         public string CommandName
         {
@@ -22,9 +24,11 @@ namespace ScriptCs.Gist
             get { return "Download and execute script hosted as a gist."; }
         }
 
-        public GistReplCommand(ILogProvider logProvider)
+        public GistReplCommand(IFileSystem fileSystem, ILogProvider logProvider)
         {
-            _Downloader = new GistDownloader(logProvider.ForCurrentType());
+            _FileSystem = fileSystem;
+            _Logger = logProvider.ForCurrentType();
+            _Downloader = new GistDownloader(_Logger);
         }
 
         public object Execute(IRepl repl, object[] args)
@@ -37,10 +41,26 @@ namespace ScriptCs.Gist
             var gistId = args[0].ToString();
             var files = _Downloader.DownloadGistFiles(gistId);
 
-            foreach (var script in files.Select(File.ReadAllText))
+            var originalDirectory = _FileSystem.CurrentDirectory;
+            var gistDirectory = Path.Combine(@".\gists\", args[0].ToString());
+            _Logger.Debug(string.Format("Changing directory to {0}", gistDirectory));
+            _FileSystem.CurrentDirectory = gistDirectory;
+
+            var scriptsToExecute = args.Skip(1).Select(s => s.ToString());
+            if (scriptsToExecute.Any())
             {
+                files = scriptsToExecute.Select(s => files.First(f => f.Contains(s))).ToArray();
+            }
+
+            foreach (var file in files)
+            {
+                _Logger.Debug(string.Format("Executing {0}", file));
+                var script = _FileSystem.ReadFile(file);
                 repl.Execute(script, null);
             }
+
+            _Logger.Debug(string.Format("Changing directory to {0}", originalDirectory));
+            _FileSystem.CurrentDirectory = originalDirectory;
 
             return null;
         }

@@ -10,6 +10,7 @@ namespace ScriptCs.Gist
     public class GistLineProcessor : DirectiveLineProcessor
     {
         private readonly GistDownloader _Downloader;
+        private readonly ILog _Logger;
 
         protected override string DirectiveName
         {
@@ -18,7 +19,8 @@ namespace ScriptCs.Gist
 
         public GistLineProcessor(ILogProvider logProvider)
         {
-            _Downloader = new GistDownloader(logProvider.ForCurrentType());
+            _Logger = logProvider.ForCurrentType();
+            _Downloader = new GistDownloader(_Logger);
         }
 
         protected override bool ProcessLine(IFileParser parser, FileParserContext context, string line)
@@ -26,21 +28,19 @@ namespace ScriptCs.Gist
             var args = GetDirectiveArgument(line).Split();
 
             var gistId = args[0];
-            var scriptToExecute = args.Length > 1 ? args[1] : null;
+            var scriptsToExecute = args.Skip(1);
 
             var files = _Downloader.DownloadGistFiles(gistId);
 
-            if (!string.IsNullOrEmpty(scriptToExecute))
+            if (scriptsToExecute.Any())
             {
-                var file = files.First(f => f.Contains(scriptToExecute));
-                parser.ParseFile(file, context);
+                files = scriptsToExecute.Select(s => files.First(f => f.Contains(s))).ToArray();
             }
-            else
+
+            foreach (var file in files)
             {
-                foreach (var file in files)
-                {
-                    parser.ParseFile(file, context);
-                }
+                _Logger.Debug(string.Format("Parsing {0}", file));
+                parser.ParseFile(file, context);
             }
 
             return true;
