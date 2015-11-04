@@ -13,7 +13,7 @@ Installing
 ==========
 Install via the scriptcs install command `scriptcs -install ScriptCs.Gist -g`
 
-The current version is built using ScriptCs.Contracts version 0.13.3
+The current version is built using ScriptCs.Contracts version 0.15.0
 
 Using in a script
 =================
@@ -46,3 +46,25 @@ Use the :gist repl command
     Pong!
     >
 
+Executing specific scripts in a gist
+====================================
+
+List script names after the gist id in either the line processor or the repl command to execute those scripts in that order.
+
+From a script
+    #gist 0dca8b3a74958f82406a hello.csx
+
+From the repl
+    > :gist "0dca8b3a74958f82406a" "tot-ziens.csx" "hello.csx"
+    Tot ziens van gist!
+    Hello from gist!
+    
+A script in the gist can also load a script from the gist. Using https://gist.github.com/ryanrousseau/392d533adc3ce49f7029 as an example.
+
+    > :gist "392d533adc3ce49f7029" "main.csx"
+    Greetings from gist!
+
+More to come!
+=============
+
+Have ideas? Open an issue!
