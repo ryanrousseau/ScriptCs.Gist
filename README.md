@@ -1,6 +1,8 @@
 ScriptCs.Gist
 =============
 
+[![Build status](https://ci.appveyor.com/api/projects/status/ldgbvtkxc4lldafw?svg=true)](https://ci.appveyor.com/project/ryanrousseau/scriptcs-gist)
+
 ScriptCs module that adds a #gist line processor.
 
 Inspired by
